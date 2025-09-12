@@ -74,6 +74,7 @@ export async function register(email: string, password: string): Promise<void> {
 		throw new Error("Error creating user")
 	}
 	const data = await response.json()
+	console.log(data)
 	localStorage.setItem("accessToken", data.accessToken)
 	return data
 }

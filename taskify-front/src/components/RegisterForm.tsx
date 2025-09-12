@@ -1,11 +1,14 @@
 import React, { useState } from "react"
 import { register } from "../lib/lib"
 import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 export default function RegisterForm() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [loading, setLoading] = useState(false)
+
+	const navigate = useNavigate()
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -16,6 +19,7 @@ export default function RegisterForm() {
 			setEmail("")
 			setPassword("")
 		} catch (error: unknown) {
+			console.log(error)
 			toast.error("Error al registrar")
 		} finally {
 			setLoading(false)
@@ -50,6 +54,7 @@ export default function RegisterForm() {
 					type="submit"
 					disabled={loading}
 					className="rounded-2xl px-4 py-2 border shadow-sm"
+					onClick={() => navigate("/home")}
 				>
 					{loading ? "Cargando..." : "Crear cuenta"}
 				</button>
