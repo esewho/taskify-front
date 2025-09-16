@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { getTasks } from "../lib/lib"
 import type { Task } from "../types/task-type"
 import TaskCard from "./Card"
@@ -41,7 +41,7 @@ export default function UserTasks() {
 				{error && <p className="text-gray-600">{error}</p>}
 
 				{!loading && !error && (
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 overflow-y-auto">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 overflow-y-auto mt-4">
 						{tasks.length === 0 ? (
 							<p className="text-gray-600">No hay tareas todavía</p>
 						) : (
