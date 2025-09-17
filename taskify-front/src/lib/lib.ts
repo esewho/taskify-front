@@ -54,6 +54,20 @@ export async function updateTask(
 	return response.json()
 }
 
+export async function setTaskCompleted(id: string, completed: boolean) {
+	const res = await fetch(`${API_URL}/tasks/${id}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(completed),
+	})
+	if (!res.ok) {
+		throw new Error("Fail to set completed")
+	}
+	return res.json()
+}
+
 export async function deleteTask(id: number): Promise<void> {
 	const response = await fetch(`${API_URL}/tasks/${id}`, {
 		method: "DELETE",

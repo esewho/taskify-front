@@ -5,17 +5,17 @@ interface Props {
 	loading: boolean
 	error: string | null
 	tasks: Task[]
-	onToggleCompleted: (task: Task) => Promise<void>
+	unToggleCompleted: (task: Task) => Promise<void>
 }
 
-export default function UserTasks(props: Props) {
-	const { loading, error, tasks, onToggleCompleted } = props
+export default function UserTasksCompleted(props: Props) {
+	const { loading, error, tasks, unToggleCompleted } = props
 	return (
 		<div className="flex-1 flex flex-col w-2/2 h-auto">
 			{/* Sección derecha */}
 			<section className="flex flex-col justify-center items-center bg-white rounded-lg shadow m-2 p-4 w-max-full h-auto">
 				<div className="border rounded-lg p-2  max-w-md text-center w-full ">
-					<h2 className="font-bold">Tus tareas</h2>
+					<h2 className="font-bold">Tus tareas completadas</h2>
 					<p>😍</p>
 				</div>
 				{loading && <p className="text-gray-600">Cargando tareas...</p>}
@@ -28,7 +28,7 @@ export default function UserTasks(props: Props) {
 						) : (
 							tasks.map((t) => (
 								<TaskCard
-									handlerChange={onToggleCompleted}
+									handlerChange={unToggleCompleted}
 									key={t.id}
 									task={t}
 									onOpen={(task) => console.log("abrir modal de ", task)}

@@ -1,8 +1,14 @@
 import React, { useState, type FormEvent } from "react"
 import { createTask } from "../lib/lib"
 import toast from "react-hot-toast"
+import type { Task } from "../types/task-type"
 
-export default function TaskForm() {
+interface Props {
+	onCreateTask: (task: Task) => Promise<void>
+}
+
+export default function TaskForm(props: Props) {
+	const { onCreateTask } = props
 	const [title, setTitle] = useState("")
 	const [description, setDescription] = useState("")
 	const [dueDate, setDueDate] = useState("")
@@ -11,7 +17,7 @@ export default function TaskForm() {
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault()
 		try {
-			await createTask({
+			const task = await createTask({
 				title,
 				description,
 				completed,
@@ -21,6 +27,7 @@ export default function TaskForm() {
 			setDueDate("")
 			setCompleted(false)
 			toast.success("Task creada exitosamente!")
+			onCreateTask(task)
 		} catch (error) {
 			console.error(error)
 			toast.error("Error al crear la tarea")

@@ -31,7 +31,7 @@ export default function Navbar() {
 	}
 
 	return (
-		<header className="sticky top-0 bg-white border-b shadow-sm">
+		<header className="sticky top-0 bg-white border-b shadow-sm z-50">
 			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
 				<nav className="flex items-center gap-4 text-sm">
 					<Link to="/app" className="hover:underline">
