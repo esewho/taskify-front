@@ -4,12 +4,12 @@ import Navbar from "./NavBar"
 
 export default function AppLayout() {
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen min-w-screen bg-gray-50">
 			<Navbar />
 
-			<main className="container mx-auto px-4 py-6">
+			<main className="flex flex-col h-full px-10 py-6 justify-center items-center">
 				{/* Grid responsiva para el contenido de la página */}
-				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+				<div className="  gap-6 items-center">
 					<Outlet />
 				</div>
 			</main>

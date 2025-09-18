@@ -21,7 +21,7 @@ export default function TaskCard({ task, onOpen, handlerChange }: Props) {
 		<button
 			onClick={() => onOpen(task)}
 			className={[
-				"group text-left w-full rounded-xl p-4 shadow",
+				"group text-left w-full rounded-xl p-4 shadow h-32",
 				"bg-yellow-100 hover:bg-yellow-200 transition",
 				"border border-yellow-300",
 				"relative overflow-hidden",

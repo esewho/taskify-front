@@ -81,14 +81,11 @@ export default function Dashboard() {
 		setTasks((prev) => [...prev, task])
 	}
 	return (
-		<>
-			<section className="bg-white rounded-2xl shadow-sm border p-5">
-				<h2 className="text-lg font-semibold mb-3">
-					Taskify • ¡Crea tu nueva tarea!
-				</h2>
+		<div className="flex flex-row justify-between gap-6 w-full">
+			<section className="w-full">
 				<TaskForm onCreateTask={createTask} />
 			</section>
-			<section className="bg-white rounded-2xl shadow-sm border p-5 xl:col-span-2">
+			<section className="w-full  ">
 				<UserTasks
 					loading={loading}
 					error={error}
@@ -96,7 +93,7 @@ export default function Dashboard() {
 					tasks={tasks}
 				/>
 			</section>{" "}
-			<section className="bg-white rounded-2xl shadow-sm border p-5 xl:col-span-2">
+			<section className="w-full   ">
 				<UserTasksCompleted
 					loading={loading}
 					error={error}
@@ -104,6 +101,6 @@ export default function Dashboard() {
 					tasks={tasksCompleted}
 				/>
 			</section>
-		</>
+		</div>
 	)
 }
