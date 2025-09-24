@@ -2,14 +2,17 @@ import type { Task } from "../types/task-type"
 import TaskCard from "./Card"
 
 interface Props {
+	onOpen: (task: Task) => void
 	loading: boolean
 	error: string | null
 	tasks: Task[]
 	onToggleCompleted: (task: Task) => Promise<void>
+	onUpdateTask: (task: Task, updates: Partial<Task>) => Promise<void>
 }
 
 export default function UserTasks(props: Props) {
-	const { loading, error, tasks, onToggleCompleted } = props
+	const { loading, error, tasks, onToggleCompleted, onUpdateTask, onOpen } =
+		props
 	return (
 		<section className="flex flex-col justify-center items-center bg-white rounded-lg shadow-md px-4 py-4 w-max h-auto border">
 			<div className="border rounded-lg p-2  text-center w-full ">
@@ -29,7 +32,8 @@ export default function UserTasks(props: Props) {
 								handlerChange={onToggleCompleted}
 								key={t.id}
 								task={t}
-								onOpen={(task) => console.log("abrir modal de ", task)}
+								onOpen={onOpen}
+								onUpdateTask={onUpdateTask}
 							/>
 						))
 					)}

@@ -78,7 +78,10 @@ export async function deleteTask(id: number): Promise<void> {
 	return response.json()
 }
 
-export async function register(email: string, password: string): Promise<void> {
+export async function register(
+	email: string,
+	password: string
+): Promise<{ accessToken: string }> {
 	const response = await fetch(`${API_URL}/auth/signup`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

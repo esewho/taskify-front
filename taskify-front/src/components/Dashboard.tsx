@@ -6,20 +6,23 @@ import UserTasks from "../components/UserTasks"
 import { getTasks, updateTask } from "../lib/lib"
 import type { Task } from "../types/task-type"
 import UserTasksCompleted from "./UserTaskCompleted"
+import ModalUpdate from "./ModalUpdate"
 
 export default function Dashboard() {
 	const [tasks, setTasks] = useState<Task[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
 	const [tasksCompleted, setTasksCompleted] = useState<Task[]>([])
+	const [onOpen, setOnOpen] = useState<boolean>(false)
+	const [editTask, setEditTask] = useState<Task | null>(null)
 
 	useEffect(() => {
 		async function fetchTasks() {
 			try {
 				const data = await getTasks()
 				const completedTasks = data.filter((t) => t.completed)
-				const tasks = data.filter((t) => !t.completed)
-				setTasks(tasks)
+				const unCompletedtasks = data.filter((t) => !t.completed)
+				setTasks(unCompletedtasks)
 				setTasksCompleted(completedTasks)
 			} catch (e) {
 				setError(e instanceof Error ? e.message : "Unknown error")
@@ -36,6 +39,22 @@ export default function Dashboard() {
 
 	if (error) {
 		return <div>{error}</div>
+	}
+
+	async function onUpdateTask(task: Task, updates: Partial<Task>) {
+		try {
+			console.log(task, "------------------------")
+			await updateTask(task.id, updates)
+			setTasks((prev) =>
+				prev.map((t) => (t.id === task.id ? { ...t, ...updates } : t))
+			)
+
+			toast.success("Tarea actualizada")
+		} catch (error) {
+			toast.error("Error al actualizar la tarea")
+		} finally {
+			setOnOpen(false)
+		}
 	}
 
 	async function toggleCompleted(task: Task): Promise<void> {
@@ -80,27 +99,42 @@ export default function Dashboard() {
 	async function createTask(task: Task) {
 		setTasks((prev) => [...prev, task])
 	}
+
+	async function handlerOnOpen(task: Task) {
+		setEditTask(task)
+		setOnOpen(true)
+	}
 	return (
-		<div className="flex flex-row justify-between gap-6 w-full">
-			<section className="w-full">
-				<TaskForm onCreateTask={createTask} />
-			</section>
-			<section className="w-full  ">
-				<UserTasks
-					loading={loading}
-					error={error}
-					onToggleCompleted={toggleCompleted}
-					tasks={tasks}
-				/>
-			</section>{" "}
-			<section className="w-full   ">
-				<UserTasksCompleted
-					loading={loading}
-					error={error}
-					unToggleCompleted={unToggleCompleted}
-					tasks={tasksCompleted}
-				/>
-			</section>
-		</div>
+		<>
+			<ModalUpdate
+				onClose={() => setOnOpen(false)}
+				onSave={onUpdateTask}
+				open={onOpen}
+				task={editTask}
+			/>
+			<div className="flex flex-row justify-between gap-6 w-full">
+				<section className="w-full">
+					<TaskForm onCreateTask={createTask} />
+				</section>
+				<section className="w-full  ">
+					<UserTasks
+						loading={loading}
+						error={error}
+						onToggleCompleted={toggleCompleted}
+						tasks={tasks}
+						onUpdateTask={onUpdateTask}
+						onOpen={handlerOnOpen}
+					/>
+				</section>{" "}
+				<section className="w-full   ">
+					<UserTasksCompleted
+						loading={loading}
+						error={error}
+						unToggleCompleted={unToggleCompleted}
+						tasks={tasksCompleted}
+					/>
+				</section>
+			</div>
+		</>
 	)
 }
