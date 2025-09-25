@@ -5,5 +5,6 @@ export type Task = {
 	completed: boolean
 	createdAt: string // llega como string (ISO date) en JSON
 	updatedAt: string
+	dueDate?: string | null
 	userId?: number
 }

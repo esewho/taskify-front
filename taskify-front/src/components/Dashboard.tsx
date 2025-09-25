@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import toast from "react-hot-toast"
 import TaskForm from "../components/TaskForm"
 import UserTasks from "../components/UserTasks"
-import { getTasks, updateTask } from "../lib/lib"
+import { deleteTask, getTasks, updateTask } from "../lib/lib"
 import type { Task } from "../types/task-type"
 import UserTasksCompleted from "./UserTaskCompleted"
 import ModalUpdate from "./ModalUpdate"
@@ -57,6 +57,17 @@ export default function Dashboard() {
 		}
 	}
 
+	async function onDelete(task: Task): Promise<void> {
+		try {
+			await deleteTask(task.id).then(() => {
+				setTasks((prev) => prev.filter((t) => t.id !== task.id))
+				toast.success("Tarea eliminada")
+			})
+		} catch (error) {
+			toast.error(`${error}`)
+		}
+	}
+
 	async function toggleCompleted(task: Task): Promise<void> {
 		if (task.completed) {
 			toast.error("La tarea ya estaba completada")
@@ -104,6 +115,7 @@ export default function Dashboard() {
 		setEditTask(task)
 		setOnOpen(true)
 	}
+
 	return (
 		<>
 			<ModalUpdate
@@ -124,6 +136,7 @@ export default function Dashboard() {
 						tasks={tasks}
 						onUpdateTask={onUpdateTask}
 						onOpen={handlerOnOpen}
+						onDelete={onDelete}
 					/>
 				</section>{" "}
 				<section className="w-full   ">

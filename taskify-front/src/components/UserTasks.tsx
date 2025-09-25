@@ -2,6 +2,7 @@ import type { Task } from "../types/task-type"
 import TaskCard from "./Card"
 
 interface Props {
+	onDelete: (task: Task) => Promise<void>
 	onOpen: (task: Task) => void
 	loading: boolean
 	error: string | null
@@ -11,8 +12,15 @@ interface Props {
 }
 
 export default function UserTasks(props: Props) {
-	const { loading, error, tasks, onToggleCompleted, onUpdateTask, onOpen } =
-		props
+	const {
+		loading,
+		error,
+		tasks,
+		onToggleCompleted,
+		onUpdateTask,
+		onOpen,
+		onDelete,
+	} = props
 	return (
 		<section className="flex flex-col justify-center items-center bg-white rounded-lg shadow-md px-4 py-4 w-max h-auto border">
 			<div className="border rounded-lg p-2  text-center w-full ">
@@ -34,6 +42,7 @@ export default function UserTasks(props: Props) {
 								task={t}
 								onOpen={onOpen}
 								onUpdateTask={onUpdateTask}
+								onDelete={onDelete}
 							/>
 						))
 					)}

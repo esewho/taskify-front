@@ -69,8 +69,13 @@ export async function setTaskCompleted(id: string, completed: boolean) {
 }
 
 export async function deleteTask(id: number): Promise<void> {
+	const token = localStorage.getItem("accessToken")
 	const response = await fetch(`${API_URL}/tasks/${id}`, {
 		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
 	})
 	if (!response.ok) {
 		throw new Error("Error deleting task")

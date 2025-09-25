@@ -21,6 +21,7 @@ export default function TaskForm(props: Props) {
 				title,
 				description,
 				completed,
+				dueDate: dueDate || null,
 			})
 			setTitle("")
 			setDescription("")
@@ -33,6 +34,7 @@ export default function TaskForm(props: Props) {
 			toast.error("Error al crear la tarea")
 		}
 	}
+	const today = new Date().toISOString().split("T")[0]
 
 	return (
 		<section className="flex flex-col  bg-white rounded-lg shadow-md  px-4 py-4 border w-80 h-full ">
@@ -78,11 +80,28 @@ export default function TaskForm(props: Props) {
 							className="block text-gray-700 text-sm font-bold mb-2"
 							htmlFor="dueDate"
 						>
+							Fecha de creación
+						</label>
+						<input
+							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							id="dueDate"
+							min={today}
+							type="date"
+							value={dueDate}
+							onChange={(e) => setDueDate(e.target.value)}
+						/>
+					</div>
+					<div className="mb-4 pl-4 pr-4">
+						<label
+							className="block text-gray-700 text-sm font-bold mb-2"
+							htmlFor="dueDate"
+						>
 							Fecha de vencimiento
 						</label>
 						<input
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 							id="dueDate"
+							min={today}
 							type="date"
 							value={dueDate}
 							onChange={(e) => setDueDate(e.target.value)}
