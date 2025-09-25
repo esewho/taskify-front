@@ -97,7 +97,7 @@ export default function TaskCard({
 						</p>
 					)}
 					<div className="mt-2 flex flex-col  text-[11px] text-gray-500">
-						<span>Creada: {new Date(task.createdAt).toLocaleDateString()}</span>
+						{/* <span>Creada: {new Date(task.createdAt).toLocaleDateString()}</span> */}
 						{task.dueDate && (
 							<span
 								className={
@@ -107,7 +107,7 @@ export default function TaskCard({
 								}
 							>
 								Vence: {new Date(task.dueDate).toLocaleDateString()}
-								<p className="absolute bottom-0 right-100 top-11 text-xs text-gray-400 opacity-75">
+								<p className="text-xs absolute  right-0 left-0 text-gray-400 italic">
 									Quedan{" "}
 									{Math.ceil(
 										(new Date(task.dueDate).getTime() - new Date().getTime()) /
