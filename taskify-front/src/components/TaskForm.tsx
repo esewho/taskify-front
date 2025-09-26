@@ -75,22 +75,7 @@ export default function TaskForm(props: Props) {
 							placeholder="Escribe una descripción"
 						></textarea>
 					</div>
-					<div className="mb-4 pl-4 pr-4">
-						<label
-							className="block text-gray-700 text-sm font-bold mb-2"
-							htmlFor="dueDate"
-						>
-							Fecha de creación
-						</label>
-						<input
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="dueDate"
-							min={today}
-							type="date"
-							value={dueDate}
-							onChange={(e) => setDueDate(e.target.value)}
-						/>
-					</div>
+
 					<div className="mb-4 pl-4 pr-4">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
